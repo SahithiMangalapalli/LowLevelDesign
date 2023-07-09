@@ -57,7 +57,38 @@ class Activity implements UserInterface{
     }
     public void removeContact(User user){
         phoneBook.remove(user);
+        root = remove(root,user.getName(),0);
     }
+
+    public boolean isEmpty(Trie curr){
+        for(int i=0; i<26; i++){
+            if(curr.children[i]!=null)
+                return false;
+        }
+
+        return true;
+    }
+
+    public Trie remove(Trie curr, String name, int length){
+        if(length<0)
+            return curr;
+        if(length == name.length()){
+            if(isEmpty(curr))
+                curr = null;
+
+            else 
+                curr.endOfWord = false;
+
+            return curr;
+        }
+        int index = name.charAt(length)-'a';
+        curr.children[index] = remove(curr.children[index],name, length+1);
+        if(curr.endOfWord == false && isEmpty(curr))
+            curr = null;
+
+        return curr;
+    }
+
     public void updateContact(User currUser, User newUser){
         phoneBook.put(newUser.getPhoneNumber(),newUser);
         phoneBook.remove(currUser.getPhoneNumber());

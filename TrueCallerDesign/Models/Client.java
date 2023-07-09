@@ -11,6 +11,8 @@ public class Client {
 
         paul.createContact(sahi);
         paul.createContact(karthik);
-       System.out.println( paul.searchContactByName("sahi").getPhoneNumber());
+       System.out.println(paul.searchContactByName("sahi").getPhoneNumber());
+       paul.removeContact(sahi);
+       System.out.println(paul.searchContactByName("sahi"));
     }
 }
